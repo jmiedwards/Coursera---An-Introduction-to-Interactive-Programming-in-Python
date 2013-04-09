@@ -26,7 +26,7 @@ def start():
 def stop():
     global game_count, win_count, is_going
     timer.stop()
-    game_count = game_count + is going
+    game_count = game_count + is_going
     if message[-1] == '0' and is_going:
         win_count += 1
     is_going = 0
@@ -54,7 +54,7 @@ def format(t):
 
     '''milisecond calc'''
     ms_calc = str(t)
-    ms =_calc[-1]
+    ms = ms_calc[-1]
     
     '''second calc'''
     s_calc = math.floor((t % 600)/10)
