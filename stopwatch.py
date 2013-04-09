@@ -14,7 +14,8 @@ s = 0
 m = 0
 t = 0
 interval = 100
-
+win_counter = 0
+total_counter = 0
 
 # Event Handlers for buttons
 
@@ -28,7 +29,12 @@ def start():
 def stop():
     global message
     global t
+    global total_counter
+    global win_counter
     timer.stop()
+    total_counter += 1
+    if ms = 0:
+        win_counter += 1
 
 #Click to Reset
 def reset():
@@ -107,7 +113,8 @@ timer = simplegui.create_timer(interval, time)
 # Draw Handler
 def draw(canvas):
     canvas.draw_text(message, [100,112], 48, "White")
-
+    canvas.draw_text(counter_text, [0,0], 30, "Red")
+    
 # Create a frame and assign callbacks to event handlers
 frame = simplegui.create_frame("Home", 300, 200)
 frame.add_button("Start", start)
@@ -117,4 +124,14 @@ frame.set_draw_handler(draw)
 
 # Start the frame animation
 frame.start()                                                                                                                                                   
+# Stopwatch game component
+def counter_text():
+    global win_counter
+    global total_counter
+    global counter_text
+    win_counter_text = str(win_counter)
+    total_counter_text = str(total_counter)
+    counter_text = win_counter_text + " / " + total_counter_text 
+    
+
 
