@@ -43,10 +43,14 @@ def reset():
     global s
     global ms
     global t
+    global win_counter
+    global total_counter
     ms = 0
     m = 0
     s = 0
     t = 0
+    win_counter = 0
+    total_counter = 0
     timer.stop()
     message = "00:00.0"
 
