@@ -9,72 +9,55 @@ import math
 
 # Initialize environment variables
 message = "00:00.0"
-ms = 0
-s = 0
-m = 0
 t = 0
-interval = 100
-win_counter = 0
-total_counter = 0
+win_count = 0
+game_count = 0
+is_going = 0
 
 # Event Handlers for buttons
 
 # Click to start
 def start():
-    global t
-    global message
+    global is_going
+    is_going = 1
     timer.start()
 
 #Click to stop
 def stop():
-    global message
-    global t
-    global total_counter
-    global win_counter
+    global game_count, win_count, is_going
     timer.stop()
-    total_counter += 1
-    if ms = 0:
-        win_counter += 1
+    game_count = game_count + is going
+    if message[-1] == '0' and is_going:
+        win_count += 1
+    is_going = 0
 
 #Click to Reset
 def reset():
-    global message
-    global m
-    global s
-    global ms
-    global t
-    global win_counter
-    global total_counter
-    ms = 0
-    m = 0
-    s = 0
-    t = 0
-    win_counter = 0
-    total_counter = 0
+    global t, message, game_count, win_count, is_going
+    game_count = 0
+    win_count = 0
+    is_going = 0
     timer.stop()
-    message = "00:00.0"
+    t = 0
+    format(t)
 
 # Event handler for timer
 def time():
-    global message
     global t
     t += 1
-    time_calc()
+    format(t)
 
 # Time unit calculations, calculates minutes, seconds and tenths of seconds from
 # tenths of second time() iteration
-def time_calc():
-    global m
-    global s
-    global ms
-    global t
+def format(t):
+    global message
 
     '''milisecond calc'''
     ms_calc = str(t)
-    ms = ms_calc[-1]
+    ms =_calc[-1]
     
     '''second calc'''
-    s_calc = round((t % 600)/10)
+    s_calc = math.floor((t % 600)/10)
     if s_calc <= 59:
         s = s_calc
     else:
@@ -82,16 +65,6 @@ def time_calc():
     
     '''minute calc'''
     m = math.floor(t/600)
-    
-    '''calls message format function'''
-    format_message()
-
-# Formatting time unit functions to draw on canvas
-def format_message():
-    global message
-    global m
-    global s
-    global ms
 
     '''string formatting for minutes'''
     if m < 10:
@@ -106,18 +79,18 @@ def format_message():
         second_format = str(s)
 
     '''string formatting for tenths of seconds'''
-    milisecond_format = str(ms)
+    tenth_s_format = str(ms)
 
     '''concatenate for draw message'''
-    message = minute_format + ':' + second_format + '.' + milisecond_format
+    message = minute_format + ':' + second_format + '.' + tenth_s_format
 
 # Create timer
-timer = simplegui.create_timer(interval, time)
+timer = simplegui.create_timer(100, time)
 
 # Draw Handler
 def draw(canvas):
     canvas.draw_text(message, [100,112], 48, "White")
-    canvas.draw_text(counter_text, [0,0], 30, "Red")
+    canvas.draw_text(str(win_count) + " / " + str(game_count), (250, 20), 20, "Green")
     
 # Create a frame and assign callbacks to event handlers
 frame = simplegui.create_frame("Home", 300, 200)
@@ -128,14 +101,6 @@ frame.set_draw_handler(draw)
 
 # Start the frame animation
 frame.start()                                                                                                                                                   
-# Stopwatch game component
-def counter_text():
-    global win_counter
-    global total_counter
-    global counter_text
-    win_counter_text = str(win_counter)
-    total_counter_text = str(total_counter)
-    counter_text = win_counter_text + " / " + total_counter_text 
     
 
 
