@@ -1,19 +1,22 @@
-# CodeSkulptor runs Python programs in your browser.
-# Click the upper left button to run this simple demo.
+# This is for codeskulptor, an online implementation of python in JS
+# Codeskulptor is free and can be found at www.codeskulptor.org
+# This will not run in a standard python compiler
 
-# CodeSkulptor runs in Chrome 18+, Firefox 11+, and Safari 6+.
-# Some features may work in other browsers, but do not expect
-# full functionality.  It does NOT run in Internet Explorer.
 
+# Import relevant modules
 import simplegui
 import math
 
+# Initialize environment variables
 message = "00:00.0"
 ms = 0
 s = 0
 m = 0
 t = 0
 interval = 100
+
+
+# Event Handlers for buttons
 
 # Click to start
 def start():
@@ -41,14 +44,15 @@ def reset():
     timer.stop()
     message = "00:00.0"
 
-# Handler for time
+# Event handler for timer
 def time():
     global message
     global t
     t += 1
     time_calc()
 
-# Time unit calculations
+# Time unit calculations, calculates minutes, seconds and tenths of seconds from
+# tenths of second time() iteration
 def time_calc():
     global m
     global s
@@ -58,34 +62,40 @@ def time_calc():
     '''milisecond calc'''
     ms_calc = str(t)
     ms = ms_calc[-1]
+    
     '''second calc'''
     s_calc = round((t % 600)/10)
     if s_calc <= 59:
         s = s_calc
     else:
         s = 0
-        '''minute calc'''
-        m = math.floor(t/600)
-        format_message()
+    
+    '''minute calc'''
+    m = math.floor(t/600)
+    
+    '''calls message format function'''
+    format_message()
 
-# Formatting functions
+# Formatting time unit functions to draw on canvas
 def format_message():
     global message
     global m
     global s
     global ms
-    '''string conditionals for minutes'''
+
+    '''string formatting for minutes'''
     if m < 10:
         minute_format = '0' + str(m)
     else: 
         minute_format = str (m)
-        '''string conditionals for seconds'''    
+    
+    '''string formatting for seconds'''    
     if s < 10:
         second_format = '0' + str(s)
     else:
         second_format = str(s)
 
-    '''string function for miliseconds'''
+    '''string formatting for tenths of seconds'''
     milisecond_format = str(ms)
 
     '''concatenate for draw message'''
